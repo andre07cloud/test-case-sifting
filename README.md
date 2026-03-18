@@ -698,7 +698,8 @@ If you use this framework in your research, please cite:
 ```bibtex
 @misc{testcasesifting2025,
   author = {André Nguimbous},
-  title  = {Test-Case Sifting: Adaptive Test Prioritization via Iterative ML Refinement},
+  title  = {Risk-Aware, Novelty-First Test Sifting for Continuous Evaluation
+of Manipulator Vision Models},
   year   = {2025},
   url    = {https://github.com/andre07cloud/test-case-sifting}
 }
