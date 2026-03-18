@@ -24,7 +24,7 @@ The framework addresses two use cases (`uc1`: wood bin picking, `uc2`: box picki
 
 1. Flatten raw scene features → CSV
 2. K-means clustering by difficulty
-3. NSGA-II / MOGA test selection (diversity + difficulty)
+3. Approximative Nearest Neighbor for test sifting (diversity)
 4. Manual analysis → Elite / Rejected splits
 5. Fine-tune YOLO on hard cases
 6. Evaluate and compute gains
