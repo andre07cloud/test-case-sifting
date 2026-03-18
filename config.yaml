@@ -1,0 +1,179 @@
+# =============================================================================
+# test-case-sifting — Configuration File
+# =============================================================================
+# All paths are RELATIVE to the project root directory.
+# Run all scripts from the project root: cd test-case-sifting && python scripts/...
+#
+# Sections:
+#   merging           → raw data sources and merged dataset destinations
+#   best_model        → baseline YOLO model weights (cycle 0)
+#   test_images       → images used for evaluation (detection mode)
+#   test_labels       → labels used for evaluation (detection mode)
+#   difficulty_levels → CSV files produced by the MOGA/ANN diversity pipeline
+#   master_json_path  → base path to merged-cycle JSON stats files
+#   collected_file_folder → base path to merged-cycle data folders
+#   main_output_folder → name of the manual-analysis output folder
+#   normal / inverse  → performance evaluation paths per mode
+#   apfd              → file paths and threshold for APFD computation
+#   moga              → initial population CSV for the genetic algorithm
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# DATA MERGING
+# Each use case has:
+#   base_path   : root folder containing your raw simulation data sub-dirs
+#                 (dir_1/, dir_2/, …). Must contain <dir_n>/<dir_n>_stats.json
+#   merged_data : output base folder for merged datasets; cycle suffix appended
+#                 automatically → e.g. data/uc1/merged_cycle0/
+#   train_data  : base folder for your initial training dataset (val/ split)
+# -----------------------------------------------------------------------------
+merging:
+  uc1:
+    base_path:   "data/raw/uc1"
+    merged_data: "data/uc1/merged"
+    train_data:  "data/uc1/dataset_ooi"
+  uc2:
+    base_path:   "data/raw/uc2"
+    merged_data: "data/uc2/merged"
+    train_data:  "data/uc2/dataset_ooi"
+
+
+# -----------------------------------------------------------------------------
+# BASELINE YOLO MODEL WEIGHTS
+# Used for difficulty evaluation at cycle 0 (before any fine-tuning).
+# Fine-tuned weights are derived automatically:
+#   fine-tuning/<uc>/cycle<n>_<uc>/weights/best.pt
+# -----------------------------------------------------------------------------
+best_model:
+  uc1: "train_results/uc1/train_results_uc1/weights/best.pt"
+  uc2: "train_results/uc2/train_results_uc2/weights/best.pt"
+
+
+# -----------------------------------------------------------------------------
+# TEST DATASET PATHS (used in detection-mode evaluation)
+# -----------------------------------------------------------------------------
+test_images:
+  uc1: "data/uc1/dataset_original/images"
+  uc2: "data/uc2/dataset_original/images"
+
+test_labels:
+  uc1: "data/uc1/dataset_original/labels"
+  uc2: "data/uc2/dataset_original/labels"
+
+test_features:
+  uc1: "data/uc1/dataset_original/merged_stats.json"
+  uc2: "data/uc2/dataset_original/merged_stats.json"
+
+
+# -----------------------------------------------------------------------------
+# DIFFICULTY LEVELS (CSV outputs of the ANN diversity pipeline)
+# Produced by ClusteringEngine.diversity_ann() or diversity_clustering().
+# Three levels per mode (normal / inverse) and per use case.
+# -----------------------------------------------------------------------------
+difficulty_levels:
+  normal:
+    uc1:
+      - level_1: "data/uc1/uc1_normal_diverse_files_ann/normal_diversify_ANN_level_1.csv"
+      - level_2: "data/uc1/uc1_normal_diverse_files_ann/normal_diversify_ANN_level_2.csv"
+      - level_3: "data/uc1/uc1_normal_diverse_files_ann/normal_diversify_ANN_level_3.csv"
+    uc2:
+      - level_1: "data/uc2/uc2_normal_diverse_files_ann/normal_diversify_ANN_level_1.csv"
+      - level_2: "data/uc2/uc2_normal_diverse_files_ann/normal_diversify_ANN_level_2.csv"
+      - level_3: "data/uc2/uc2_normal_diverse_files_ann/normal_diversify_ANN_level_3.csv"
+  inverse:
+    uc1:
+      - level_1: "data/uc1/uc1_inverse_diverse_files_ann/inverse_diversify_ANN_level_1.csv"
+      - level_2: "data/uc1/uc1_inverse_diverse_files_ann/inverse_diversify_ANN_level_2.csv"
+      - level_3: "data/uc1/uc1_inverse_diverse_files_ann/inverse_diversify_ANN_level_3.csv"
+    uc2:
+      - level_1: "data/uc2/uc2_inverse_diverse_files_ann/inverse_diversify_ANN_level_1.csv"
+      - level_2: "data/uc2/uc2_inverse_diverse_files_ann/inverse_diversify_ANN_level_2.csv"
+      - level_3: "data/uc2/uc2_inverse_diverse_files_ann/inverse_diversify_ANN_level_3.csv"
+
+
+# -----------------------------------------------------------------------------
+# MANUAL ANALYSIS PATHS
+# master_json_path    : base path for merged-cycle JSON; "_cycle<n>" appended
+#                       → data/uc1/merged_cycle0/cycle0_merged_stats.json
+# collected_file_folder: base path for merged-cycle data folder; "_cycle<n>" appended
+# main_output_folder  : name of the top-level analysis output folder
+#                       Full path: data/<uc>/<mode>_<uc>_<main_output_folder>/
+# -----------------------------------------------------------------------------
+master_json_path:
+  uc1: "data/uc1/merged"
+  uc2: "data/uc2/merged"
+
+collected_file_folder:
+  uc1: "data/uc1/merged"
+  uc2: "data/uc2/merged"
+
+main_output_folder: "test_manual_analysis"
+
+
+# -----------------------------------------------------------------------------
+# PERFORMANCE EVALUATION PATHS
+# main_folder : project root anchor (keep as "." )
+#               PerformanceAnalyzer builds: <main_folder>/data/<uc>/<mode>_<uc>_test_manual_analysis/
+# naive       : base path for the merged (naive) dataset; "_cycle<n>" appended
+# elite       : base path for the Elite folder; "_<cycle>" appended
+# -----------------------------------------------------------------------------
+normal:
+  performences:
+    uc1:
+      main_folder: "."
+      naive:       "data/uc1/merged"
+      elite:       "data/uc1/normal_uc1_test_manual_analysis/Elite"
+    uc2:
+      main_folder: "."
+      naive:       "data/uc2/merged"
+      elite:       "data/uc2/normal_uc2_test_manual_analysis/Elite"
+
+inverse:
+  performences:
+    uc1:
+      main_folder: "."
+      naive:       "data/uc1/merged"
+      elite:       "data/uc1/inverse_uc1_test_manual_analysis/Elite"
+    uc2:
+      main_folder: "."
+      naive:       "data/uc2/merged"
+      elite:       "data/uc2/inverse_uc2_test_manual_analysis/Elite"
+
+
+# -----------------------------------------------------------------------------
+# APFD — Average Percentage of Faults Detected
+# fault_percentile: difficulty threshold (0–100) above which a test is a "fault"
+# cluster          : CSV with cluster assignments (from main_clustering.py cluster)
+# naive            : CSV with all test features (from main_clustering.py flatten)
+# elite            : CSV with MOGA-selected test features (from main_ga.py)
+# level_1/2/3      : per-level diversity CSVs (from ClusteringEngine.diversity_ann)
+# -----------------------------------------------------------------------------
+apfd:
+  fault_percentile: 90
+  uc1:
+    cluster: "data/uc1/uc1_cycle0_features_with_clusters_kmeans.csv"
+    naive:   "data/uc1/uc1_cycle0_flattened_scene_features.csv"
+    elite:   "data/uc1/uc1_normal_features_diversifies_ANN_GLOBAL.csv"
+    level_1: "data/uc1/uc1_normal_diverse_files_ann/normal_diversify_ANN_level_1.csv"
+    level_2: "data/uc1/uc1_normal_diverse_files_ann/normal_diversify_ANN_level_2.csv"
+    level_3: "data/uc1/uc1_normal_diverse_files_ann/normal_diversify_ANN_level_3.csv"
+  uc2:
+    cluster: "data/uc2/uc2_cycle0_features_with_clusters_kmeans.csv"
+    naive:   "data/uc2/uc2_cycle0_flattened_scene_features.csv"
+    elite:   "data/uc2/uc2_normal_features_diversifies_ANN_GLOBAL.csv"
+    level_1: "data/uc2/uc2_normal_diverse_files_ann/normal_diversify_ANN_level_1.csv"
+    level_2: "data/uc2/uc2_normal_diverse_files_ann/normal_diversify_ANN_level_2.csv"
+    level_3: "data/uc2/uc2_normal_diverse_files_ann/normal_diversify_ANN_level_3.csv"
+
+
+# -----------------------------------------------------------------------------
+# MOGA — Multi-Objective Genetic Algorithm
+# initial_pop: CSV produced by main_clustering.py (flatten action, cycle 0)
+#              contains feature vectors and difficulty scores for all test cases
+# -----------------------------------------------------------------------------
+moga:
+  uc1:
+    initial_pop: "data/uc1/uc1_cycle0_flattened_scene_features.csv"
+  uc2:
+    initial_pop: "data/uc2/uc2_cycle0_flattened_scene_features.csv"
