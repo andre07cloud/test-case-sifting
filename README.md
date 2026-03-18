@@ -700,6 +700,6 @@ If you use this framework in your research, please cite:
   author = {André Nguimbous},
   title  = {Test-Case Sifting: Adaptive Test Prioritization via Iterative ML Refinement},
   year   = {2025},
-  url    = {https://github.com/<your-username>/test-case-sifting}
+  url    = {https://github.com/andre07cloud/test-case-sifting}
 }
 ```
