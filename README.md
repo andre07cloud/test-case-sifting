@@ -1,6 +1,6 @@
 # Risk-Aware, Novelty-First Test Sifting for Continuous Evaluation of Manipulator Vision Models
 
-##Abstract
+## Abstract
 Deep learning-based vision increasingly drives autonomous ma-
 nipulators in safety-critical industrial cells, yet assessing their reli-
 ability under long-tailed operating conditions remains costly and
