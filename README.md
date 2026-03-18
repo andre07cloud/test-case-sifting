@@ -697,7 +697,7 @@ If you use this framework in your research, please cite:
 
 ```bibtex
 @misc{testcasesifting2025,
-  author = {André de Jesus},
+  author = {André Nguimbous},
   title  = {Test-Case Sifting: Adaptive Test Prioritization via Iterative ML Refinement},
   year   = {2025},
   url    = {https://github.com/<your-username>/test-case-sifting}
