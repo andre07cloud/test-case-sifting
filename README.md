@@ -1,6 +1,34 @@
 # Risk-Aware, Novelty-First Test Sifting for Continuous Evaluation of Manipulator Vision Models
 
-A research framework for **for cost-bounded, continual evaluation and repair of manipulator vision models.** using perception difficulty, clustering, and ANN. The system iteratively refines a YOLO segmentation model by identifying hard test cases, selecting the most informative ones, and fine-tuning the model across successive cycles.
+##Abstract
+Deep learning-based vision increasingly drives autonomous ma-
+nipulators in safety-critical industrial cells, yet assessing their reli-
+ability under long-tailed operating conditions remains costly and
+brittle. Rare occlusions, clutter, and adverse lighting conditions
+are expensive to capture and label, whereas perception errors can
+cascade into grasp failures and collisions. Photorealistic simulators
+such as NVIDIA Isaac Sim enable large-scale labeled testing through
+domain randomization, but naive random sampling repeatedly over-
+supplies frequent, near-duplicate scenes, inflating evaluation cost
+and producing overly optimistic robustness estimates.
+We present ManiSieve, a simulation-based pipeline for cost-
+bounded, continual evaluation and repair of manipulator vision
+models. ManiSieve profiles each simulated scene using prediction-
+ground-truth disagreement, partitions scene difficulty into stable
+Normal, Hard, and Critical risk tiers via K-Means centroids frozen
+as a reference risk model, and incrementally filters each tier for
+descriptor-space novelty using a persistent Approximate Nearest
+Neighbor (ANN) index under an 𝐿∞ criterion. The retained, tier-
+balanced Golden Test Suite is fixed for regression evaluation and
+monitoring, while all non-reserved scenes are repurposed for fine-
+tuning, enforcing a disciplined train–test separation under continu-
+ous simulation.
+Across two industrial Isaac Sim picking scenarios, i.e., occlusion-
+heavy depalletizing (UC1) and simpler palletizing (UC2), ManiSieve
+reduces redundancy-dominated test streams by up to 11×, yields
+consistently more conservative evaluations than unfiltered random
+testing, and supports continual improvements of up to +8% F1 and
++20% mAP50–95 under Golden-suite regression testing.
 
 ---
 
