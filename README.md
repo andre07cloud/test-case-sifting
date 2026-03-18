@@ -1,6 +1,6 @@
-# Test-Case Sifting — Adaptive Test Prioritization via Iterative ML Refinement
+# Risk-Aware, Novelty-First Test Sifting for Continuous Evaluation of Manipulator Vision Models
 
-A research framework for **adaptive test case prioritization** using perception difficulty, clustering, and multi-objective genetic algorithms (NSGA-II). The system iteratively refines a YOLO segmentation model by identifying hard test cases, selecting the most informative ones, and fine-tuning the model across successive cycles.
+A research framework for **for cost-bounded, continual evaluation and repair of manipulator vision models.** using perception difficulty, clustering, and ANN. The system iteratively refines a YOLO segmentation model by identifying hard test cases, selecting the most informative ones, and fine-tuning the model across successive cycles.
 
 ---
 
@@ -20,7 +20,7 @@ A research framework for **adaptive test case prioritization** using perception 
 
 ## Overview
 
-The framework addresses two use cases (`uc1`: wood picking, `uc2`: box picking) and runs iterative **cycles** of:
+The framework addresses two use cases (`uc1`: wood bin picking, `uc2`: box picking) and runs iterative **cycles** of:
 
 1. Flatten raw scene features → CSV
 2. K-means clustering by difficulty
