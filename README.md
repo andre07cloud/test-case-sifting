@@ -88,7 +88,6 @@ test-case-sifting/
 ├── train_results/               # YOLO training logs and metrics
 ├── outputs/
 │   └── plots/                   # Generated figures (PNG)
-└── poo-refactor.md              # OOP refactoring documentation
 ```
 
 ---
